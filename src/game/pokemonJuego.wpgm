@@ -1,0 +1,7 @@
+import wollok.game.*
+import gameConfiguration.*
+
+program JuegoPokemon {
+	config.configurarJuego()
+	game.start()
+}
