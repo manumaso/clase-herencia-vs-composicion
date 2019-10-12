@@ -29,6 +29,7 @@ class Pokemon {
 	method derrotado() = vida == 0
 	
 	method saludar() {
+		//TODO: reproducir sonido
 		if(self.derrotado()) {
 			game.say(self, "x_x")
 		} else {

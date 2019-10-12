@@ -8,4 +8,9 @@ object estadio {
 	method aumentarTemperatura(grados) {
 		temperatura += grados
 	}
+	
+	method empezaALlover() {
+		lloviendo = true
+		//TODO: poner un timer para que deje de llover
+	}
 }

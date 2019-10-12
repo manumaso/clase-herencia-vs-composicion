@@ -2,6 +2,8 @@ import wollok.game.*
 import pokemon.*
 import estadio.*
 
+//TODO: hacer otra implementacion donde se delege en las especies
+
 object charmander inherits Pokemon {
 
 	override method felicidad() = estadio.temperatura()
@@ -47,6 +49,7 @@ object squirtle inherits Pokemon {
 	method image() = "Squirtle.png"
 
 	override method ataquePrincipal() {
+		estadio.empezaALlover()
 	}
 
 }
@@ -79,6 +82,9 @@ object dittoSinCopiar {
 	method ataquePrincipal() {
 	}
 }
+
+
+//TODO: mover la logica de brock a otro lado
 
 object brock {
 

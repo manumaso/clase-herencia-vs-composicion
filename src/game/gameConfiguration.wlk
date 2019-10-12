@@ -47,6 +47,7 @@ object config {
 		var personajeControlado = ditto
 		
 		keyboard.f().onPressDo({
+			//TODO: emprolijar esto, o hacer que se pueda rotar entre todos los personajes
 			if(personajeControlado == ditto) {
 				personajeControlado = charmander
 			} else {
@@ -64,6 +65,7 @@ object config {
 		keyboard.down().onPressDo({ movimiento.mover(personajeControlado, haciaAbajo) })
 		keyboard.left().onPressDo({ movimiento.mover(personajeControlado, haciaLaIzquierda) })
 		keyboard.right().onPressDo({ movimiento.mover(personajeControlado, haciaLaDerecha) })
+		//TODO: mostrar de alguna manera la felicidad de los pokemons
 	}
 	
 }
