@@ -1,6 +1,5 @@
 import movimientos.*
-import ejercicio.pokemon.*
-import ejercicio.ataques.*
+import ejercicio.pokemons.*
 import wollok.game.*
 
 object config {
@@ -25,13 +24,17 @@ object config {
 	method agregarComponentesVisuales(){
 		game.boardGround("arena.png")
 		
+		ditto.position(game.origin())
 		game.addVisual(ditto)
-		game.addVisualIn(bulbasaur, game.at(self.anchoMaximo() - 2, 2))
-		game.addVisualIn(charmander, game.at(self.anchoMaximo() - 2, 5))
-		game.addVisualIn(squirtle, game.at(self.anchoMaximo() - 2, 8))
+		bulbasaur.position(game.at(self.anchoMaximo() - 2, 2))
+		game.addVisual(bulbasaur)
+		charmander.position(game.at(self.anchoMaximo() - 2, 5))
+		game.addVisual(charmander)
+		squirtle.position(game.at(self.anchoMaximo() - 2, 8))
+		game.addVisual(squirtle)
 		
 		game.addVisual(brock)
-		
+
 		game.showAttributes(ditto)
 		game.showAttributes(bulbasaur)
 		game.showAttributes(charmander)
@@ -42,11 +45,20 @@ object config {
 	method configurarAcciones(){
 				
 		var personajeControlado = ditto
-		ditto.agregarAtaque(lanzallamas)
-		ditto.agregarAtaque(transformacion)
 		
-		keyboard.e().onPressDo({personajeControlado.cambiarAtaqueActual()})
-		keyboard.q().onPressDo({personajeControlado.atacar()})
+		keyboard.f().onPressDo({
+			if(personajeControlado == ditto) {
+				personajeControlado = charmander
+			} else {
+				personajeControlado = ditto
+			}
+		})
+		
+		keyboard.z().onPressDo({[ditto, charmander, squirtle, bulbasaur].forEach{pokemon => game.say(pokemon, pokemon.felicidad().toString())}})
+		
+		keyboard.e().onPressDo({personajeControlado.ataquePrincipal()})
+		keyboard.q().onPressDo({personajeControlado.ataqueSecundario()})
+		keyboard.w().onPressDo({personajeControlado.saludar()})
 		
 		keyboard.up().onPressDo({ movimiento.mover(personajeControlado, haciaArriba) })
 		keyboard.down().onPressDo({ movimiento.mover(personajeControlado, haciaAbajo) })

@@ -1,44 +1,39 @@
 import wollok.game.*
-import tipos.*
-import ataques.*
+import pokemons.*
 
-object charmander inherits Fuego {
-	override method nombre () = "Charmander"
-	override method image () = "Charmander.png"
-}
+class Pokemon {
+	var property vida = 100
+	var property position
+	var property nombre
 
-object bulbasaur inherits Planta {
-	override method nombre () = "Bulbasaur"
-	override method image () = "bulbasaur.png"
-}
+	method felicidad()
 
-object squirtle inherits Agua {
-	override method nombre () = "Squirtle"
-	override method image () = "Squirtle.png"
-}
+	method ataquePrincipal()
 
-object ditto inherits Pokemon {
+	method ataqueSecundario() {
+		self.atacarOponente { pokemon => pokemon.recibirDanio(30) }
+	}
+
+	method recibirDanio(danio) {
+		vida = 0.max(vida - danio)
+		brock.pokemonFueDaniado(self, danio)
+	}
+
+	method atacarOponente(ataque) {
+		var posicionDeLaDerecha = position.right(1)
+		game.getObjectsIn(posicionDeLaDerecha).take(1).forEach(ataque)
+	}
+
+	method image() // Wollok-game
+
+	method derrotado() = vida == 0
 	
-	var transformado = false
-	var transformacion = ""
-	
-	override method nombre () = "Ditto"
-	
-	override method image () {
-		if(transformado){
-			return transformacion
-		}else{
-			return "Ditto.png"
+	method saludar() {
+		if(self.derrotado()) {
+			game.say(self, "x_x")
+		} else {
+			game.say(self, self.nombre() + "!")
 		}
 	}
-	
-	method transformarse(unPokemon){
-		transformado = true
-		transformacion = unPokemon.nombre() + ".png"
-	}
 }
 
-object brock {
-	method image () = "brock.png"
-	method position () = game.at(game.center().x(), 0)
-}
