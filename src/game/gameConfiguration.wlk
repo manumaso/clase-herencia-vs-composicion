@@ -1,8 +1,18 @@
 import movimientos.*
-import ejercicio.pokemons.*
 import wollok.game.*
+import ejercicio.Entrenador.*
+import ejercicio.Especies.*
+import ejercicio.Pokemon.*
+import ejercicio.brock.*
+import clock.*
+import game.AnimatedSprite.*
+
 
 object config {
+	const bulbasaur = new Pokemon(especie = new Bulbasaur())
+	const charmander = new Pokemon(especie = new Charmander())
+	const squirtle = new Pokemon(especie = new Squirtle())
+	const entrenador = new Entrenador(equipo = [charmander, bulbasaur, squirtle])
 	
 	method alturaMaxima() = 12
 	method anchoMaximo() = 12
@@ -10,6 +20,7 @@ object config {
 	method alturaSuelo() = self.alturaMaxima() / 2
 	
 	method configurarJuego(){
+		game.onTick(60, "Advance time", { clock.advanceTime(1) })
 		self.configurarVentana()
 		self.agregarComponentesVisuales()
 		self.configurarAcciones()
@@ -23,49 +34,19 @@ object config {
 	
 	method agregarComponentesVisuales(){
 		game.boardGround("arena.png")
-		
-		ditto.position(game.origin())
-		game.addVisual(ditto)
-		bulbasaur.position(game.at(self.anchoMaximo() - 2, 2))
-		game.addVisual(bulbasaur)
-		charmander.position(game.at(self.anchoMaximo() - 2, 5))
-		game.addVisual(charmander)
-		squirtle.position(game.at(self.anchoMaximo() - 2, 8))
-		game.addVisual(squirtle)
+
+		game.addVisualIn(entrenador, game.center())
 		
 		game.addVisual(brock)
 
-		game.showAttributes(ditto)
-		game.showAttributes(bulbasaur)
-		game.showAttributes(charmander)
-		game.showAttributes(squirtle)
-		
+		game.showAttributes(entrenador)
 	}
 	
 	method configurarAcciones(){
-				
-		var personajeControlado = ditto
-		
-		keyboard.f().onPressDo({
-			//TODO: emprolijar esto, o hacer que se pueda rotar entre todos los personajes
-			if(personajeControlado == ditto) {
-				personajeControlado = charmander
-			} else {
-				personajeControlado = ditto
-			}
-		})
-		
-		keyboard.z().onPressDo({[ditto, charmander, squirtle, bulbasaur].forEach{pokemon => game.say(pokemon, pokemon.felicidad().toString())}})
-		
-		keyboard.e().onPressDo({personajeControlado.ataquePrincipal()})
-		keyboard.q().onPressDo({personajeControlado.ataqueSecundario()})
-		keyboard.w().onPressDo({personajeControlado.saludar()})
-		
-		keyboard.up().onPressDo({ movimiento.mover(personajeControlado, haciaArriba) })
-		keyboard.down().onPressDo({ movimiento.mover(personajeControlado, haciaAbajo) })
-		keyboard.left().onPressDo({ movimiento.mover(personajeControlado, haciaLaIzquierda) })
-		keyboard.right().onPressDo({ movimiento.mover(personajeControlado, haciaLaDerecha) })
-		//TODO: mostrar de alguna manera la felicidad de los pokemons
+		keyboard.f().onPressDo({ entrenador.cambiarPokemon() })
+		keyboard.e().onPressDo({ entrenador.intentarEvolucionar()})
+		keyboard.q().onPressDo({ entrenador.darDeComer() })
+		keyboard.w().onPressDo({ entrenador.ordenarUsarHabilidad()})
 	}
 	
 }
