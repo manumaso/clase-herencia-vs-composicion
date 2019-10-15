@@ -23,7 +23,7 @@ class Pokemon {
 	}
 
 	method evolucionar() {
-		if (self.felicidad() > 50) {
+		if (self.felicidad() >= 50) {
 			especie = especie.evolucion()
 		} else {
 			self.error("No puede evolucionar, necesita tener al menos 50 de felicidad y su felicidad es " + self.felicidad().toString())
