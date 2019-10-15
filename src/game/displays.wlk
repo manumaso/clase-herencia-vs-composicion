@@ -30,3 +30,20 @@ class DigitDisplay {
 
 }
 
+class PokemonActualDisplay {
+
+	const property entrenador
+
+	method image() = entrenador.pokemonActual().image()
+
+}
+
+class MenuEquipoDisplay {
+
+	const property pokemon
+
+	method image() = pokemon.menuSprite()
+
+}
+
+

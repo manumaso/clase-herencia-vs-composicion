@@ -1,20 +1,6 @@
 import wollok.game.*
 
-object informador {
-
-	var property informador = new InformadorMudo()
-
-	method informar(mensaje) {
-		informador.informar(mensaje)
-	}
-
-	method habilidadFueUsada(nombreDePokemon, nombreDeAtaque) {
-		informador.habilidadFueUsada(nombreDePokemon, nombreDeAtaque)
-	}
-
-}
-
-class InformadorMudo {
+object informadorMudo {
 
 	method informar(_mensaje) {
 	}
@@ -39,10 +25,3 @@ class Brock {
 	}
 
 }
-
-object burbujaDeTexto {
-
-	method image() = "empty.png"
-
-}
-

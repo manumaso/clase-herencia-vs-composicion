@@ -1,53 +1,62 @@
 import wollok.game.*
 import estadio.*
-import brock.*
 import game.AnimatedSprite.*
 
+class Especie {
+	method evolucion() {
+		self.error("No tiene evolución")
+		return null
+	}
+	method usarHabilidad(pokemon)
+	method alegria()
+	method grito()
+}
 
-class Charmander {
+class Charmander inherits Especie {
 	const sprite = new AnimatedSprite(name="charmander/resized_", imageExtension="png", quantityOfFrames=54)
 	
-	method usarHabilidad(pokemon) {
-		informador.habilidadFueUsada("Charmander", "ascuas")
+	override method usarHabilidad(pokemon) {
 		estadio.aumentarTemperatura(5)
 		pokemon.aumentarHambre(10)
 	}
 
-	method alegria() = estadio.sensacionTermica()
+	override method alegria() = estadio.sensacionTermica()
 
-	method evolucion() = new Charmeleon()
+	override method evolucion() = new Charmeleon()
 
 	method image() = sprite.image()
 	
 	method menuSprite() = "charmander/resized_menu2.png"
+	
+	method grito() = "gritos/charmander.ogg"
 }
 
-class Squirtle {
+class Squirtle inherits Especie {
 	const sprite = new AnimatedSprite(name="squirtle/resized_", imageExtension="png", quantityOfFrames=32)
 
-	method usarHabilidad(pokemon) {
-		informador.habilidadFueUsada("Squirtle", "danza lluvia")
+	override method usarHabilidad(pokemon) {
 		estadio.empezaALlover()
 		pokemon.aumentarHambre(30)
 	}
 
-	method alegria() = if (estadio.lloviendo()) 70 else 30
+	override method alegria() = if (estadio.lloviendo()) 70 else 30
 
-	method evolucion() = new Wartortle()
+	override method evolucion() = new Wartortle()
 
 	method image() = sprite.image()
 	
 	method menuSprite() = "squirtle/resized_menu2.png"
+	
+	method grito() = "gritos/squirtle.ogg"
 
 }
 
-class Bulbasaur {
+class Bulbasaur inherits Especie {
 	const sprite = new AnimatedSprite(name="bulbasaur/resized_", imageExtension="png", quantityOfFrames=52)
 
 	var obtuvoEnergiaDelSol = 0
 
-	method usarHabilidad(pokemon) {
-		informador.habilidadFueUsada("Bulbasaur", "sintesis")
+	override method usarHabilidad(pokemon) {
 		if (estadio.lloviendo()) {
 			self.absorberEnergiaDelSol(pokemon, 1)
 		} else {
@@ -58,82 +67,74 @@ class Bulbasaur {
 	method absorberEnergiaDelSol(pokemon, cantidadDeEnergia) {
 		pokemon.disminuirHambre(cantidadDeEnergia)
 		obtuvoEnergiaDelSol += 1
-		informador.informar("Bulbasaur absorbió energía del sol")
 	}
 
-	method alegria() = obtuvoEnergiaDelSol * 10
+	override method alegria() = obtuvoEnergiaDelSol * 10
 
-	method evolucion() = new Ivysaur()
+	override method evolucion() = new Ivysaur()
 
 	method image() = sprite.image()
 
 	method menuSprite() = "bulbasaur/resized_menu2.png"
+	
+	method grito() = "gritos/bulbasaur.ogg"
 }
 
-class Charmeleon {
+class Charmeleon inherits Especie {
 	const sprite = new AnimatedSprite(name="charmeleon/resized_", imageExtension="png", quantityOfFrames=58)
 
-	method alegria() = 50 + (estadio.temperatura() / 2)
+	override method alegria() = 50 + (estadio.temperatura() / 2)
 
-	method usarHabilidad(pokemon) {
-		informador.habilidadFueUsada("Charmeleon", "llamarada")
+	override method usarHabilidad(pokemon) {
 		estadio.aumentarTemperatura(30)
 		pokemon.aumentarHambre(5)
-	}
-
-	method evolucion() {
-		self.error("No tiene evolucion")
 	}
 	
 	method image() = sprite.image()
 	
 	method menuSprite() = "charmeleon/resized_menu2.png"
+	
+	method grito() = "gritos/charmander.ogg"
 
 }
 
-class Wartortle {
+class Wartortle inherits Especie {
 	const sprite = new AnimatedSprite(name="wartortle/resized_", imageExtension="png", quantityOfFrames=43)
 
 	var alegria = 40
 
-	method alegria() = alegria
+	override method alegria() = alegria
 
-	method usarHabilidad(pokemon) {
-		informador.habilidadFueUsada("Wartortle", "giro rápido")
+	override method usarHabilidad(pokemon) {
 		alegria *= 1.5
 		pokemon.aumentarHambre(10)
-	}
-
-	method evolucion() {
-		self.error("No tiene evolucion")
 	}
 
 	method image() = sprite.image()
 	
 	method menuSprite() = "wartortle/resized_menu2.png"
+	
+	method grito() = "gritos/wartortle.ogg"
 
 }
 
-class Ivysaur {
+class Ivysaur inherits Especie {
 	const sprite = new AnimatedSprite(name="ivysaur/resized_", imageExtension="png", quantityOfFrames=59)
 
 	var bayasComidas = 0
 
-	method alegria() = bayasComidas * 20
+	override method alegria() = bayasComidas * 20
 
-	method usarHabilidad(pokemon) {
-		informador.habilidadFueUsada("Ivysaur", "día soleado")
+	override method usarHabilidad(pokemon) {
 		estadio.secarse()
 		pokemon.aumentarHambre(15)
-	}
-
-	method evolucion() {
-		self.error("No tiene evolucion")
 	}
 
 	method image() = sprite.image()
 	
 	method menuSprite() = "ivysaur/resized_menu2.png"
+	
+	method grito() = "gritos/ivysaur.ogg"
 
 }
 

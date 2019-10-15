@@ -1,64 +1,53 @@
-import brock.*
+import game.juego.*
 import game.AnimatedSprite.*
-import wollok.game.*
 
 object estadio {
 
 	var property temperatura = 10
-	var property lloviendo = false
+	var clima = regular
 
 	method aumentarTemperatura(grados) {
 		temperatura += grados
-		controladorDeAnimaciones.iniciarAnimacion(ascuas)
-		informador.informar("La temperatura subió a " + self.sensacionTermica().toString())
+		juego.temperaturaSubio(self.sensacionTermica())
 	}
 
-	method sensacionTermica() = if (lloviendo) (temperatura / 2) else temperatura
+	method sensacionTermica() = clima.sensacionTermica(temperatura)
 
 	method empezaALlover() {
-		lloviendo = true
-		controladorDeAnimaciones.iniciarAnimacion(danzaLluvia)
-		informador.informar("Se largó a llover")
+		clima = lluvioso
+		juego.seLargoALlover()
 	}
 
 	method secarse() {
-		lloviendo = false
+		clima = soleado
 	}
 
-	method soleado() = !lloviendo
-
+	method lloviendo() = clima.lloviendo()
+	method soleado() = clima.soleado()
+	
+	method image() = clima.image()
 }
 
-object controladorDeAnimaciones{
-	var animacionEnCurso = false
-	
-	method iniciarAnimacion(efectoDeHabilidad){
-		if(!animacionEnCurso){
-			animacionEnCurso = true
-			game.addVisualIn(efectoDeHabilidad, game.origin())
-			self.finalizarAnimacion(efectoDeHabilidad)
-		}
-	}
-	
-	method finalizarAnimacion(efectoDeHabilidad){
-		game.schedule(1000, { =>
-			game.removeVisual(efectoDeHabilidad)
-			animacionEnCurso = false
-		})
-	}
+class Clima {
+	method lloviendo()
+	method soleado() = !self.lloviendo()
+	method sensacionTermica(temperatura) = temperatura
 }
 
-object danzaLluvia{
+object lluvioso inherits Clima {
 	const sprite = new AnimatedSprite(name="danza lluvia/lluvia_estado_", imageExtension="png", quantityOfFrames=7)
 	method image() = sprite.image()
+	override method lloviendo() = true
+	override method sensacionTermica(temperatura) = super(temperatura) / 2
 }
 
-object ascuas{
-	const sprite = new AnimatedSprite(name="ascuas/temperatura_", imageExtension="png", quantityOfFrames=6)
-	method image() = sprite.image()
+object regular inherits Clima {
+	method image() = "empty.png"
+	override method lloviendo() = false
 }
 
-object diaSoleado{
-	const sprite = new AnimatedSprite(name="dia soleado/sol_", imageExtension="png", quantityOfFrames=6)
+object soleado inherits Clima {
+	const sprite = new AnimatedSprite(name="dia soleado/sol_", imageExtension="png", quantityOfFrames=20)
 	method image() = sprite.image()
+	override method lloviendo() = false
 }

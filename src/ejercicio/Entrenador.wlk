@@ -1,4 +1,4 @@
-import brock.*
+import game.juego.*
 
 class Entrenador {
 	var property equipo = []
@@ -11,7 +11,7 @@ class Entrenador {
 	
 	method darDeComer() {
 		self.pokemonActual().comerBaya()
-		informador.informar("Se le dio una baya al pokemon")
+		juego.bayaFueComida(self.pokemonActual())
 	}
 	
 	method ordenarUsarHabilidad() {

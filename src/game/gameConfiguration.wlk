@@ -3,50 +3,17 @@ import wollok.game.*
 import ejercicio.Entrenador.*
 import ejercicio.Especies.*
 import ejercicio.Pokemon.*
-import ejercicio.brock.*
+import informador.*
 import clock.*
 import game.AnimatedSprite.*
-import game.numberDisplay.*
+import game.displays.*
+import game.juego.*
+import game.animador.*
+import ejercicio.estadio.*
+import game.Cursor.*
+import game.Image.*
+import game.sonidista.*
 
-class Image {
-
-	const imagePath
-
-	method image() = imagePath
-
-}
-
-class Cursor {
-
-	const entrenador
-	const sprite = new AnimatedSprite(name = "cursor/", imageExtension = "png", quantityOfFrames = 9)
-	var property indiceDePokemonApuntado = 0
-
-	method image() = sprite.image()
-
-	method cambiarPokemonSeleccionado() {
-		indiceDePokemonApuntado = (indiceDePokemonApuntado + 1) % entrenador.equipo().size()
-	}
-
-	method position() = game.at(indiceDePokemonApuntado * 2, game.height() - 2)
-
-}
-
-class DisplayPokemonActual {
-
-	const property entrenador
-
-	method image() = entrenador.pokemonActual().image()
-
-}
-
-class DisplayMenuEquipo {
-
-	const property pokemon
-
-	method image() = pokemon.menuSprite()
-
-}
 
 object config {
 
@@ -62,10 +29,24 @@ object config {
 	method anchoMaximo() = 10
 
 	method configurarJuego() {
-		game.onTick(60, "Advance time", { clock.advanceTime(1)})
+		self.configurarSonido()
+		self.configurarReloj()
+		self.configurarAnimador()
 		self.configurarVentana()
 		self.agregarComponentesVisuales()
 		self.configurarAcciones()
+	}
+	
+	method configurarSonido() {
+		juego.sonidista(sonidista)
+	}
+	
+	method configurarReloj() {
+		game.onTick(60, "Advance time", { clock.advanceTime(1)})
+	}
+	
+	method configurarAnimador() {
+		juego.animador(animador)
 	}
 
 	method configurarVentana() {
@@ -77,21 +58,22 @@ object config {
 	method agregarMenuDeEquipo() {
 		var unoccuppiedTopLeft = game.at(0, game.height() - 2)
 		entrenador.equipo().forEach{ pokemon =>
-			game.addVisualIn(new DisplayMenuEquipo(pokemon = pokemon), unoccuppiedTopLeft)
+			game.addVisualIn(new MenuEquipoDisplay(pokemon = pokemon), unoccuppiedTopLeft)
 			unoccuppiedTopLeft = unoccuppiedTopLeft.right(2)
 		}
 		game.addVisual(cursor)
 	}
 
 	method agregarInformador() {
+		const burbujaDeTexto = new Image(imagePath="empty.png")
 		const brock = new Brock(dondeHabla = burbujaDeTexto)
-		informador.informador(brock)
+		juego.informador(brock)
 		game.addVisualIn(brock, game.at(0, 0))
 		game.addVisualIn(burbujaDeTexto, game.at(2, 2))
 	}
 
 	method agregarPokemonActual() {
-		const displayPokemonActual = new DisplayPokemonActual(entrenador = entrenador)
+		const displayPokemonActual = new PokemonActualDisplay(entrenador = entrenador)
 		game.addVisualIn(displayPokemonActual, game.center().left(1).down(3))
 
 		game.addVisualIn(new Image(imagePath = "stats.png"), game.at(game.width() - 5, 0))
@@ -102,11 +84,16 @@ object config {
 		const hambreDisplay = new NumberDisplay(getNumber = { entrenador.pokemonActual().hambre() }, quantityOfDigits = 3)
 		hambreDisplay.draw(game.at(game.width() - 2, 2))
 	}
+	
+	method agregarClima() {
+		game.addVisualIn(estadio, game.origin())
+	}
 
 	method agregarComponentesVisuales() {
 		game.boardGround("arena.png")
 		self.agregarMenuDeEquipo()
 		self.agregarPokemonActual()
+		self.agregarClima()
 		self.agregarInformador()
 	}
 

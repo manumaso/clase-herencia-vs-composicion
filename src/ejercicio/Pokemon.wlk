@@ -1,4 +1,6 @@
 import wollok.game.*
+import game.juego.*
+
 
 class Pokemon {
 	var especie
@@ -8,7 +10,10 @@ class Pokemon {
 
 	method alegria() = especie.alegria()
 
-	method usarHabilidad() = especie.usarHabilidad(self)
+	method usarHabilidad() {
+		juego.habilidadFueUsada(self)
+		especie.usarHabilidad(self)
+	}
 
 	method disminuirHambre(cantidad) {
 		hambre = 0.max(hambre - cantidad)
@@ -33,6 +38,8 @@ class Pokemon {
 	method image() = especie.image()
 	
 	method menuSprite() = especie.menuSprite()
+	
+	method grito() = especie.grito()
 
 }
 

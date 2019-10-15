@@ -1,7 +1,10 @@
 import wollok.game.*
 import gameConfiguration.*
+import game.juego.*
+
 
 program JuegoPokemon {
 	config.configurarJuego()
+	game.schedule(0, { juego.empezoElJuego() })
 	game.start()
 }
