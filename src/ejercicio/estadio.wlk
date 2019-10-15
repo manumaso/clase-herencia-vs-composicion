@@ -9,7 +9,7 @@ object estadio {
 
 	method aumentarTemperatura(grados) {
 		temperatura += grados
-		game.addVisualIn(ascuas, game.origin())
+		controladorDeAnimaciones.iniciarAnimacion(ascuas)
 		informador.informar("La temperatura subió a " + self.sensacionTermica().toString())
 	}
 
@@ -17,7 +17,7 @@ object estadio {
 
 	method empezaALlover() {
 		lloviendo = true
-		game.addVisualIn(danzaLluvia, game.origin())
+		controladorDeAnimaciones.iniciarAnimacion(danzaLluvia)
 		informador.informar("Se largó a llover")
 	}
 
@@ -27,6 +27,25 @@ object estadio {
 
 	method soleado() = !lloviendo
 
+}
+
+object controladorDeAnimaciones{
+	var animacionEnCurso = false
+	
+	method iniciarAnimacion(efectoDeHabilidad){
+		if(!animacionEnCurso){
+			animacionEnCurso = true
+			game.addVisualIn(efectoDeHabilidad, game.origin())
+			self.finalizarAnimacion(efectoDeHabilidad)
+		}
+	}
+	
+	method finalizarAnimacion(efectoDeHabilidad){
+		game.schedule(1000, { =>
+			game.removeVisual(efectoDeHabilidad)
+			animacionEnCurso = false
+		})
+	}
 }
 
 object danzaLluvia{

@@ -43,8 +43,8 @@ object config {
 	const entrenador = new Entrenador(equipo = [charmander, otroSquirtle, bulbasaur, squirtle])
 	const cursor = new Cursor(entrenador = entrenador)
 	
-	method alturaMaxima() = 15
-	method anchoMaximo() = 14
+	method alturaMaxima() = 12
+	method anchoMaximo() = 10
 	
 	method configurarJuego(){
 		game.onTick(60, "Advance time", { clock.advanceTime(1) })
