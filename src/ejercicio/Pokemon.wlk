@@ -2,9 +2,9 @@ import wollok.game.*
 
 class Pokemon {
 	var especie
-	var hambre = 0
+	var property hambre = 0
 
-	method felicidad() = self.alegria() - hambre
+	method felicidad() = 0.max(self.alegria() - hambre)
 
 	method alegria() = especie.alegria()
 
@@ -19,7 +19,7 @@ class Pokemon {
 	}
 
 	method comerBaya() {
-		hambre -= 10
+		self.disminuirHambre(10)
 	}
 
 	method evolucionar() {
@@ -31,6 +31,8 @@ class Pokemon {
 	}
 
 	method image() = especie.image()
+	
+	method menuSprite() = especie.menuSprite()
 
 }
 

@@ -10,7 +10,7 @@ object estadio {
 	method aumentarTemperatura(grados) {
 		temperatura += grados
 		game.addVisualIn(ascuas, game.origin())
-		brock.informar("La temperatura subió a " + self.sensacionTermica().toString())
+		informador.informar("La temperatura subió a " + self.sensacionTermica().toString())
 	}
 
 	method sensacionTermica() = if (lloviendo) (temperatura / 2) else temperatura
@@ -18,7 +18,7 @@ object estadio {
 	method empezaALlover() {
 		lloviendo = true
 		game.addVisualIn(danzaLluvia, game.origin())
-		brock.informar("Se largó a llover")
+		informador.informar("Se largó a llover")
 	}
 
 	method secarse() {

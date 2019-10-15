@@ -8,7 +8,7 @@ class Charmander {
 	const sprite = new AnimatedSprite(name="charmander/resized_", imageExtension="png", quantityOfFrames=54)
 	
 	method usarHabilidad(pokemon) {
-		brock.habilidadFueUsada("Charmander", "ascuas")
+		informador.habilidadFueUsada("Charmander", "ascuas")
 		estadio.aumentarTemperatura(5)
 		pokemon.aumentarHambre(10)
 	}
@@ -18,13 +18,15 @@ class Charmander {
 	method evolucion() = new Charmeleon()
 
 	method image() = sprite.image()
+	
+	method menuSprite() = "charmander/resized_menu2.png"
 }
 
 class Squirtle {
 	const sprite = new AnimatedSprite(name="squirtle/resized_", imageExtension="png", quantityOfFrames=32)
 
 	method usarHabilidad(pokemon) {
-		brock.habilidadFueUsada("Squirtle", "danza lluvia")
+		informador.habilidadFueUsada("Squirtle", "danza lluvia")
 		estadio.empezaALlover()
 		pokemon.aumentarHambre(30)
 	}
@@ -34,6 +36,8 @@ class Squirtle {
 	method evolucion() = new Wartortle()
 
 	method image() = sprite.image()
+	
+	method menuSprite() = "squirtle/resized_menu2.png"
 
 }
 
@@ -43,7 +47,7 @@ class Bulbasaur {
 	var obtuvoEnergiaDelSol = 0
 
 	method usarHabilidad(pokemon) {
-		brock.habilidadFueUsada("Bulbasaur", "sintesis")
+		informador.habilidadFueUsada("Bulbasaur", "sintesis")
 		if (estadio.lloviendo()) {
 			self.absorberEnergiaDelSol(pokemon, 1)
 		} else {
@@ -54,7 +58,7 @@ class Bulbasaur {
 	method absorberEnergiaDelSol(pokemon, cantidadDeEnergia) {
 		pokemon.disminuirHambre(cantidadDeEnergia)
 		obtuvoEnergiaDelSol += 1
-		brock.informar("Bulbasaur absorbió energía del sol")
+		informador.informar("Bulbasaur absorbió energía del sol")
 	}
 
 	method alegria() = obtuvoEnergiaDelSol * 10
@@ -63,6 +67,7 @@ class Bulbasaur {
 
 	method image() = sprite.image()
 
+	method menuSprite() = "bulbasaur/resized_menu2.png"
 }
 
 class Charmeleon {
@@ -71,7 +76,7 @@ class Charmeleon {
 	method alegria() = 50 + (estadio.temperatura() / 2)
 
 	method usarHabilidad(pokemon) {
-		brock.habilidadFueUsada("Charmeleon", "llamarada")
+		informador.habilidadFueUsada("Charmeleon", "llamarada")
 		estadio.aumentarTemperatura(30)
 		pokemon.aumentarHambre(5)
 	}
@@ -81,6 +86,8 @@ class Charmeleon {
 	}
 	
 	method image() = sprite.image()
+	
+	method menuSprite() = "charmeleon/resized_menu2.png"
 
 }
 
@@ -92,7 +99,7 @@ class Wartortle {
 	method alegria() = alegria
 
 	method usarHabilidad(pokemon) {
-		brock.habilidadFueUsada("Wartortle", "giro rápido")
+		informador.habilidadFueUsada("Wartortle", "giro rápido")
 		alegria *= 1.5
 		pokemon.aumentarHambre(10)
 	}
@@ -102,6 +109,8 @@ class Wartortle {
 	}
 
 	method image() = sprite.image()
+	
+	method menuSprite() = "wartortle/resized_menu2.png"
 
 }
 
@@ -113,7 +122,7 @@ class Ivysaur {
 	method alegria() = bayasComidas * 20
 
 	method usarHabilidad(pokemon) {
-		brock.habilidadFueUsada("Ivysaur", "día soleado")
+		informador.habilidadFueUsada("Ivysaur", "día soleado")
 		estadio.secarse()
 		pokemon.aumentarHambre(15)
 	}
@@ -123,6 +132,8 @@ class Ivysaur {
 	}
 
 	method image() = sprite.image()
+	
+	method menuSprite() = "ivysaur/resized_menu2.png"
 
 }
 

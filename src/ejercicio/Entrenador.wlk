@@ -1,7 +1,7 @@
 import brock.*
 
 class Entrenador {
-	var equipo = []
+	var property equipo = []
 	
 	method pokemonActual() = equipo.first()
 	
@@ -11,7 +11,7 @@ class Entrenador {
 	
 	method darDeComer() {
 		self.pokemonActual().comerBaya()
-		brock.informar("Se le dio una baya al pokemon")
+		informador.informar("Se le dio una baya al pokemon")
 	}
 	
 	method ordenarUsarHabilidad() {
