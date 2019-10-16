@@ -1,38 +1,28 @@
 import wollok.game.*
-import game.Animation.*
 import game.NumberFormatter.*
+import game.clock.*
 
 class AnimatedSprite {
 
 	const name
 	const imageExtension = "png"
 	const quantityOfFrames
-	var animation = new AnimationLoader(animatedSprite = self)
+	var imagenes = []
 
-	method images() {
-		const frameNumbers = (0 .. quantityOfFrames - 1).map{ frameNumber => numberFormatter.toStringPaddingLeadingZeros(frameNumber, quantityOfFrames.digits()) }
-		return frameNumbers.map{ frameNumber => name + frameNumber + "." + imageExtension }
-	}
-
-	method initializeAnimation() {
-		animation = new Animation(imagenes = self.images())
-	}
-
-	method image() = animation.image()
-
-}
-
-class AnimationLoader {
-
-	const animatedSprite
-	var requestedLoad = false
+	method frameNumber() = clock.timePassed() % quantityOfFrames
 
 	method image() {
-		if (!requestedLoad) {
-			requestedLoad = true
-			game.schedule(0, { animatedSprite.initializeAnimation()})
+		if(imagenes.isEmpty()) self.inicializarImagenes()
+		return imagenes.get(self.frameNumber())
+	}
+
+	method inicializarImagenes() {
+		//Hackazo para que ande un poquito mas rapido la animacion, creo todos los strings al principio en vez de calcular el nombre en cada frame 
+		//Se podría hacer más simple
+		quantityOfFrames.times{ i =>
+			const imageName = name + numberFormatter.toStringPaddingLeadingZeros(i - 1, quantityOfFrames.digits()) + "." + imageExtension  
+			imagenes.add(imageName)
 		}
-		return "loading/loading.png"
 	}
 
 }

@@ -3,7 +3,7 @@ import game.AnimatedSprite.*
 
 object estadio {
 
-	var property temperatura = 10
+	var property temperatura = 0
 	var property clima = regular
 
 	method aumentarTemperatura(grados) {

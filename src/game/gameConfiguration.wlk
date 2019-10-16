@@ -38,7 +38,7 @@ object config {
 	}
 	
 	method configurarSonido() {
-		juego.sonidista(sonidista)
+		juego.sonidista(sonidistaMudo)
 	}
 	
 	method configurarReloj() {
@@ -88,12 +88,18 @@ object config {
 	method agregarClima() {
 		game.addVisualIn(estadio, game.origin())
 	}
+	
+	method agregarTermometro() {
+		const termometro = new TermometroDisplay(getTemperatura = { estadio.sensacionTermica() })
+		game.addVisualIn(termometro, game.center().down(1).right(3))
+	}
 
 	method agregarComponentesVisuales() {
 		game.boardGround("arena.png")
 		self.agregarMenuDeEquipo()
 		self.agregarPokemonActual()
 		self.agregarClima()
+		self.agregarTermometro()
 		self.agregarInformador()
 	}
 
