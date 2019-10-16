@@ -38,7 +38,7 @@ object config {
 	}
 	
 	method configurarSonido() {
-		juego.sonidista(sonidistaMudo)
+		juego.sonidista(sonidista)
 	}
 	
 	method configurarReloj() {

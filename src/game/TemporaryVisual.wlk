@@ -1,5 +1,4 @@
 import wollok.game.*
-import game.Animation.*
 import game.NumberFormatter.*
 
 class TemporaryVisual {
