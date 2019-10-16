@@ -51,7 +51,7 @@ class Clima {
 
 object lluvioso inherits Clima {
 
-	const sprite = new AnimatedSprite(name = "danza lluvia/lluvia_estado_", imageExtension = "png", quantityOfFrames = 7)
+	const sprite = new AnimatedSprite(name = { "danza lluvia/lluvia_estado_" }, imageExtension = "png", quantityOfFrames = 7)
 
 	method image() = sprite.image()
 
@@ -74,7 +74,7 @@ object regular inherits Clima {
 
 object soleado inherits Clima {
 
-	const sprite = new AnimatedSprite(name = "dia soleado/sol_", imageExtension = "png", quantityOfFrames = 20)
+	const sprite = new AnimatedSprite(name = { "dia soleado/sol_" }, imageExtension = "png", quantityOfFrames = 20)
 
 	method image() = sprite.image()
 
