@@ -20,6 +20,7 @@ class Entrenador {
 	
 	method intentarEvolucionar() {
 		self.pokemonActual().evolucionar()
+		juego.pokemonEvoluciono()
 	}
 	
 	method image() = self.pokemonActual().image()

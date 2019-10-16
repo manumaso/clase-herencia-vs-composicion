@@ -24,11 +24,11 @@ class Pokemon {
 	}
 
 	method comerBaya() {
-		self.disminuirHambre(10)
+		especie.comerBaya(self)
 	}
 
 	method evolucionar() {
-		if (self.felicidad() >= 50) {
+		if (self.felicidad() >= 5) {
 			especie = especie.evolucion()
 		} else {
 			self.error("No puede evolucionar, necesita tener al menos 50 de felicidad y su felicidad es " + self.felicidad().toString())
@@ -40,6 +40,8 @@ class Pokemon {
 	method menuSprite() = especie.menuSprite()
 	
 	method grito() = especie.grito()
+	
+	method animacionHabilidad() = especie.animacionHabilidad()
 
 }
 

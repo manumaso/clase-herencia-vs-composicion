@@ -25,7 +25,7 @@ class DigitDisplay {
 		const number = getNumber.apply().roundUp()
 		const numberName = if (digit > number.digits()) "0" else number.toString().charAt(number.digits() - digit)
 		const numberPosition = ((3 - digit).abs() % 3).toString()
-		return "digits/resized_" + numberName + numberPosition + ".png"
+		return "digits/" + numberName + numberPosition + ".png"
 	}
 
 }

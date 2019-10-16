@@ -13,11 +13,20 @@ object informadorMudo {
 class Brock {
 
 	const dondeHabla
+	var libre = true
 
 	method image() = "brock.png"
 
 	method informar(mensaje) {
-		game.say(dondeHabla, mensaje)
+		if(libre) {
+			self.ocuparse()
+			game.say(dondeHabla, mensaje)
+		}
+	}
+	
+	method ocuparse() {
+		libre = false
+		game.schedule(1500, { libre = true })
 	}
 
 	method habilidadFueUsada(nombreDePokemon, nombreDeAtaque) {
