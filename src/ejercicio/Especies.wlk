@@ -22,7 +22,9 @@ class Especie {
 
 	method menuSprite() = new Image(imagePath = "empty.png")
 
-	method comerBaya(pokemon) = pokemon.disminuirHambre(1)
+	method comerBaya(pokemon) {
+		pokemon.disminuirHambre(1)
+	}
 
 }
 
@@ -108,7 +110,7 @@ class Charmeleon inherits Especie {
 
 	override method usarHabilidad(pokemon) {
 		estadio.aumentarTemperatura(3)
-		pokemon.aumentarHambre(5)
+		pokemon.aumentarHambre(2)
 	}
 
 	override method image() = sprite.image()
@@ -129,7 +131,7 @@ class Wartortle inherits Especie {
 	override method alegria() = alegria
 
 	override method usarHabilidad(pokemon) {
-		alegria *= 1.5
+		alegria *= 1.2
 		pokemon.aumentarHambre(1)
 	}
 
@@ -164,7 +166,6 @@ class Ivysaur inherits Especie {
 	override method comerBaya(pokemon) {
 		super(pokemon)
 		bayasComidas += 1
-		return null
 	}
 
 }

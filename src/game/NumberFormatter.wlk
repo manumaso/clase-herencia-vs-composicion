@@ -1,5 +1,4 @@
 import wollok.game.*
-import game.Animation.*
 
 object numberFormatter {
 	method toStringWithLeadingZeros(number, quantityOfZeros) {

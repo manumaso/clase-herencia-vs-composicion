@@ -46,4 +46,19 @@ class MenuEquipoDisplay {
 
 }
 
+class TermometroDisplay {
+	const getTemperatura = { 0 }
+	
+	method image() {
+		const temperatura = getTemperatura.apply()
+		if(temperatura < 6) {
+			return "termometro/px_termometro_1.png"
+		} else if(temperatura < 12) {
+			return "termometro/px_termometro_2.png"
+		} else {
+			return "termometro/px_termometro_3.png"
+		}
+	}
+}
+
 
