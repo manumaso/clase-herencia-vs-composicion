@@ -1,7 +1,6 @@
 import game.TemporaryVisual.*
 import informador.*
 import animador.*
-import ejercicio.estadio.*
 import game.AnimatedSprite.*
 import wollok.game.*
 import game.sonidista.*
