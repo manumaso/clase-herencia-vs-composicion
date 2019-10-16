@@ -9,16 +9,24 @@ import game.animador.*
 import game.Cursor.*
 import game.Image.*
 import game.sonidista.*
+import ejercicio.entrenador.*
+import ejercicio.estadio.*
 
 
 object config {
-	const cursor = new Cursor(pokemons = [])
-
+	const cursor = new Cursor(pokemons = entrenador.equipo())
+	
 	method alturaMaxima() = 12
 
 	method anchoMaximo() = 10
 
 	method configurarJuego() {
+		const charmander = new Pokemon(especie = new Charmander())
+		const squirtle = new Pokemon(especie = new Squirtle())
+		const bulbasaur = new Pokemon( especie= new Bulbasaur())
+		entrenador.agregarPokemon(charmander)
+		entrenador.agregarPokemon(squirtle)
+		entrenador.agregarPokemon(bulbasaur)
 		self.configurarSonido()
 		self.configurarReloj()
 		self.configurarAnimador()
@@ -28,7 +36,7 @@ object config {
 	}
 	
 	method configurarSonido() {
-		juego.sonidista(sonidistaMudo)
+		juego.sonidista(sonidista)
 	}
 	
 	method configurarReloj() {
@@ -47,7 +55,7 @@ object config {
 
 	method agregarMenuDeEquipo() {
 		var unoccuppiedTopLeft = game.at(0, game.height() - 2)
-		const pokemons = [] // TODO: hacer que se vea una miniatura por cada pokemon del equipo
+		const pokemons = entrenador.equipo()
 		pokemons.forEach{ pokemon =>
 			game.addVisualIn(new MenuEquipoDisplay(pokemon = pokemon), unoccuppiedTopLeft)
 			unoccuppiedTopLeft = unoccuppiedTopLeft.right(2)
@@ -64,15 +72,14 @@ object config {
 	}
 
 	method agregarPokemonActual() {
-		//const displayPokemonActual = ???
-		//game.addVisualIn(displayPokemonActual, game.center().left(1).down(3))
-		//TODO: mostrar al pokemon actual
+		const displayPokemonActual = new PokemonActualDisplay(entrenador = entrenador)
+		game.addVisualIn(displayPokemonActual, game.center().left(1).down(3))
 		game.addVisualIn(new Image(imagePath = "stats.png"), game.at(game.width() - 5, 0))
 
-		const felicidadDisplay = new NumberDisplay(getNumber = { 0 }, quantityOfDigits = 3) // TODO: Hacer que se muestre la felicidad del pokemon actual
+		const felicidadDisplay = new NumberDisplay(getNumber = { entrenador.pokemonActual().felicidad() }, quantityOfDigits = 3) // TODO: Hacer que se muestre la felicidad del pokemon actual
 		felicidadDisplay.draw(game.at(game.width() - 2, 1))
 
-		const hambreDisplay = new NumberDisplay(getNumber = { 0 }, quantityOfDigits = 3) // TODO: Hacer que se muestre el hambre del pokemon actual
+		const hambreDisplay = new NumberDisplay(getNumber = { entrenador.pokemonActual().hambre() }, quantityOfDigits = 3) // TODO: Hacer que se muestre el hambre del pokemon actual
 		hambreDisplay.draw(game.at(game.width() - 2, 2))
 	}
 	
@@ -81,7 +88,7 @@ object config {
 	}
 	
 	method agregarTermometro() {
-		const termometro = new TermometroDisplay(getTemperatura = { 0 }) //TODO: hacer que muestre la temperatura real
+		const termometro = new TermometroDisplay(getTemperatura = { estadio.sensacionTermica() }) //TODO: hacer que muestre la temperatura real
 		game.addVisualIn(termometro, game.center().down(1).right(3))
 	}
 
@@ -95,6 +102,17 @@ object config {
 	}
 
 	method configurarAcciones() {
+		keyboard.c().onPressDo({ entrenador.darDeComer() })
+		
+		keyboard.n().onPressDo({ 
+			entrenador.cambiarPokemonActual()
+			cursor.cambiarPokemonSeleccionado()
+		})
+		
+		keyboard.h().onPressDo({ entrenador.usarHabilidad() })
+		
+		keyboard.e().onPressDo({ entrenador.evolucionarPokemon() })
+		
 		//TODO: Hacer que se configuren las teclas
 	}
 
