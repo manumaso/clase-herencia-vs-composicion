@@ -4,7 +4,7 @@ import game.AnimatedSprite.*
 object estadio {
 
 	var property temperatura = 0
-	var property clima = regular
+	var property clima = soleado
 
 	method aumentarTemperatura(grados) {
 		temperatura += grados
@@ -14,11 +14,11 @@ object estadio {
 	method sensacionTermica() = clima.sensacionTermica(temperatura)
 
 	method empezaALlover() {
-		clima.llover(self)
+		clima = lluvioso
 	}
 
 	method secarse() {
-		clima.salirSol(self)
+		clima = soleado
 	}
 
 	method lloviendo() = clima.lloviendo()
@@ -29,59 +29,30 @@ object estadio {
 
 }
 
-class Clima {
-
-	method lloviendo()
-
-	method soleado() = !self.lloviendo()
-
-	method sensacionTermica(temperatura) = temperatura
-
-	method llover(estadio) {
-		juego.seLargoALlover()
-		estadio.clima(lluvioso)
-	}
-
-	method salirSol(estadio) {
-		juego.dejoDeLlover()
-		estadio.clima(soleado)
-	}
-
-}
-
-object lluvioso inherits Clima {
+object lluvioso {
 
 	const sprite = new AnimatedSprite(name = { "danza lluvia/lluvia_estado_" }, imageExtension = "png", quantityOfFrames = { 7 })
 
 	method image() = sprite.image()
 
-	override method lloviendo() = true
+	method lloviendo() = true
+	
+	method soleado() = false
 
-	override method sensacionTermica(temperatura) = super(temperatura) / 2
-
-	override method llover(_estadio) {
-	}
-
+	method sensacionTermica(temperatura) = temperatura / 2
 }
 
-object regular inherits Clima {
-
-	method image() = "empty.png"
-
-	override method lloviendo() = false
-
-}
-
-object soleado inherits Clima {
+object soleado {
 
 	const sprite = new AnimatedSprite(name = { "dia soleado/sol_" }, imageExtension = "png", quantityOfFrames = { 20 })
 
 	method image() = sprite.image()
 
-	override method lloviendo() = false
+	method lloviendo() = false
+	
+	method soleado() = true
 
-	override method salirSol(_estadio) {
-	}
+	method sensacionTermica(temperatura) = temperatura
 
 }
 
