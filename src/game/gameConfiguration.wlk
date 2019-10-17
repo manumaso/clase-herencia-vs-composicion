@@ -18,10 +18,10 @@ import game.sonidista.*
 object config {
 
 	const bulbasaur = new Pokemon(especie = new Charmander())
-	const charmander = new Pokemon(especie = new Charmander())
-	const squirtle = new Pokemon(especie = new Charmander())
-	const otroSquirtle = new Pokemon(especie = new Charmander())
-	const entrenador = new Entrenador(equipo = [ charmander, otroSquirtle, bulbasaur, squirtle ])
+	const charmander = new Pokemon(especie = new Squirtle())
+	const squirtle = new Pokemon(especie = new Bulbasaur())
+	const wartortle = new Pokemon(especie = new Wartortle())
+	const entrenador = new Entrenador(equipo = [ charmander, wartortle, bulbasaur, squirtle ])
 	const cursor = new Cursor(entrenador = entrenador)
 
 	method alturaMaxima() = 12
