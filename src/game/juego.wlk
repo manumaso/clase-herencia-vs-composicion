@@ -6,6 +6,12 @@ import game.AnimatedSprite.*
 import wollok.game.*
 import game.sonidista.*
 
+//La idea del objeto 'juego', es que lo notifiquemos cuando suceden ciertos eventos de nuestro juego, y ese objeto se encarga
+//de realizar los efectos (animaciones, sonidos, etc) necesarios. De manera que no tengamos los efectos repartidos por todo el código,
+//si no concentrados todos acá. Además, también hace que sea mucho más fácil hacer que esos efectos no se intenten producir en un ambiente
+//en el que no tendría sentido: por ejemplo, si intentasemos correr los tests, el juego no está andando en ese momento así que no podemos reproducir sonidos,
+//para que esto no nos traiga problemas, podemos hacer que cuando vayamos a correr los tests, el sonidista del juego sea el 'sonidistaMudo' que no hace
+//nada realmente cuando le decimos que toque algo.
 
 object juego {
 	var property informador = informadorMudo
