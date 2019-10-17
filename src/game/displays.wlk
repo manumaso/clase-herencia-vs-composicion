@@ -25,7 +25,7 @@ class DigitDisplay {
 	method position() = startNumberPosition.left((digit - 1).div(3))
 
 	method image() {
-		const number = getNumber.apply().roundUp()
+		const number = getNumber.apply().truncate(0)
 		const numberName = if (digit > number.digits()) "0" else number.toString().charAt(number.digits() - digit)
 		const numberPosition = ((3 - digit).abs() % 3).toString()
 		return "digits/" + numberName + numberPosition + ".png"
