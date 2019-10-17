@@ -17,10 +17,10 @@ import game.sonidista.*
 
 object config {
 
-	const bulbasaur = new Pokemon(especie = new Bulbasaur())
+	const bulbasaur = new Pokemon(especie = new Charmander())
 	const charmander = new Pokemon(especie = new Charmander())
-	const squirtle = new Pokemon(especie = new Squirtle())
-	const otroSquirtle = new Pokemon(especie = new Squirtle())
+	const squirtle = new Pokemon(especie = new Charmander())
+	const otroSquirtle = new Pokemon(especie = new Charmander())
 	const entrenador = new Entrenador(equipo = [ charmander, otroSquirtle, bulbasaur, squirtle ])
 	const cursor = new Cursor(entrenador = entrenador)
 

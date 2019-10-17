@@ -3,7 +3,7 @@ import game.juego.*
 
 
 class Pokemon {
-	var especie
+	var property especie
 	var property hambre = 0
 
 	method felicidad() = 0.max(self.alegria() - hambre)
@@ -29,7 +29,7 @@ class Pokemon {
 
 	method evolucionar() {
 		if (self.felicidad() >= 5) {
-			especie = especie.evolucion()
+			especie.evolucionar(self)
 		} else {
 			self.error("No puede evolucionar, necesita tener al menos 50 de felicidad y su felicidad es " + self.felicidad().toString())
 		}

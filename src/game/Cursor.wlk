@@ -4,7 +4,7 @@ import wollok.game.*
 class Cursor {
 
 	const entrenador
-	const sprite = new AnimatedSprite(name = "cursor/", imageExtension = "png", quantityOfFrames = 9)
+	const sprite = new AnimatedSprite(name = {"cursor/"}, imageExtension = "png", quantityOfFrames = {9})
 	var property indiceDePokemonApuntado = 0
 
 	method image() = sprite.image()

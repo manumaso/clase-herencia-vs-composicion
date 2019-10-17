@@ -23,7 +23,7 @@ object juego {
 		sonidista.tocar("attack.mp3")
 	}
 	method bayaFueComida(pokemon) {
-		animador.animaEn(new AnimatedSprite(name="hearts/", quantityOfFrames=8), 500, game.center().down(1))
+		animador.animaEn(new AnimatedSprite(name={"hearts/"}, quantityOfFrames={8}), 500, game.center().down(1))
 		sonidista.tocar(pokemon.grito())
 		informador.informar("Se le dio una baya al pokemon")
 	}
