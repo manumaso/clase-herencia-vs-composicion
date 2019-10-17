@@ -20,8 +20,7 @@ object config {
 	const bulbasaur = new Pokemon(especie = new Charmander())
 	const charmander = new Pokemon(especie = new Squirtle())
 	const squirtle = new Pokemon(especie = new Bulbasaur())
-	const wartortle = new Pokemon(especie = new Wartortle())
-	const entrenador = new Entrenador(equipo = [ charmander, wartortle, bulbasaur, squirtle ])
+	const entrenador = new Entrenador(equipo = [ charmander, bulbasaur, squirtle ])
 	const cursor = new Cursor(entrenador = entrenador)
 
 	method alturaMaxima() = 12
@@ -73,16 +72,7 @@ object config {
 	}
 
 	method agregarPokemonActual() {
-		const displayPokemonActual = new PokemonActualDisplay(entrenador = entrenador)
-		game.addVisualIn(displayPokemonActual, game.center().left(1).down(3))
-
-		game.addVisualIn(new Image(imagePath = "stats.png"), game.at(game.width() - 5, 0))
-
-		const felicidadDisplay = new NumberDisplay(getNumber = { entrenador.pokemonActual().felicidad() }, quantityOfDigits = 3)
-		felicidadDisplay.draw(game.at(game.width() - 2, 1))
-
-		const hambreDisplay = new NumberDisplay(getNumber = { entrenador.pokemonActual().hambre() }, quantityOfDigits = 3)
-		hambreDisplay.draw(game.at(game.width() - 2, 2))
+		new PokemonActualDisplay(entrenador = entrenador).draw()
 	}
 	
 	method agregarClima() {

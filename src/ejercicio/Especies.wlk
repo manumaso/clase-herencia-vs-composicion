@@ -164,3 +164,6 @@ class Ivysaur inherits Especie {
 
 }
 
+/*TODO: implementar a jigglypuff */
+//nombre de jigglypuff: "jigglypuff"
+//quantityOfFrames de jigglypuff: 16

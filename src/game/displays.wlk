@@ -1,5 +1,8 @@
 import NumberFormatter.*
 import wollok.game.*
+import game.Image.*
+import game.AnimatedSprite.*
+
 
 class NumberDisplay {
 
@@ -34,8 +37,33 @@ class PokemonActualDisplay {
 
 	const property entrenador
 
-	method image() = entrenador.pokemonActual().image()
+	method image() = self.pokemon().image()
+	
+	method pokemon() = entrenador.pokemonActual()
+	
+	method draw() {
+		game.addVisualIn(self, game.center().left(1).down(3))
 
+		game.addVisualIn(new Image(imagePath = "stats.png"), game.at(game.width() - 5, 0))
+
+		const felicidadDisplay = new NumberDisplay(getNumber = { self.pokemon().felicidad() }, quantityOfDigits = 3)
+		felicidadDisplay.draw(game.at(game.width() - 2, 1))
+
+		const hambreDisplay = new NumberDisplay(getNumber = { self.pokemon().hambre() }, quantityOfDigits = 3)
+		hambreDisplay.draw(game.at(game.width() - 2, 2))
+		
+		const sleepDisplay = new SleepDisplay(durmiendo = { false /*TODO: completar con código que dice si el pokemon esta durmiendo o no */ })
+		game.addVisualIn(sleepDisplay, game.center().down(1).left(1))
+	}
+
+}
+
+class SleepDisplay {
+	const durmiendo = { false }
+	
+	const sleepAnimation = new AnimatedSprite(name={"zzz/"}, quantityOfFrames={12}) 
+	
+	method image() = if(durmiendo.apply()) sleepAnimation.image() else "empty.png"
 }
 
 class MenuEquipoDisplay {
