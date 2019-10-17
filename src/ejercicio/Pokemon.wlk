@@ -42,6 +42,8 @@ class Pokemon {
 	method grito() = especie.grito()
 	
 	method animacionHabilidad() = especie.animacionHabilidad()
+	
+	method sonidoHabilidad() = especie.sonidoHabilidad()
 
 }
 
