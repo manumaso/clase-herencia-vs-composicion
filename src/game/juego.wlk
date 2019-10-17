@@ -26,7 +26,7 @@ object juego {
 	}
 	method habilidadFueUsada(pokemon) {
 		animador.animaEn(pokemon.animacionHabilidad(), 700, game.origin())
-		sonidista.tocar("attack.mp3")
+		sonidista.tocar(pokemon.sonidoHabilidad())
 	}
 	method bayaFueComida(pokemon) {
 		animador.animaEn(new AnimatedSprite(name={"hearts/"}, quantityOfFrames={8}), 500, game.center().down(1))

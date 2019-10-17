@@ -15,8 +15,12 @@ class Especie {
 	method menuSprite() = self.nombre() + "/menu.png"
 
 	method image() = sprite.image()
+	
+	method sonidoHabilidad() = "attack.mp3"
 
 	method quantityOfFrames()
+
+	method nombre()
 
 	// metodos del dominio
 	method evolucionar(pokemon) {
@@ -24,8 +28,6 @@ class Especie {
 	}
 
 	method usarHabilidad(pokemon)
-
-	method nombre()
 
 	method alegria()
 
